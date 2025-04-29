@@ -1,0 +1,107 @@
+/* Add this to your stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400&display=swap');
+
+.dating-card {
+  background: #fff9f5; /* Warm white */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ffe8d6;
+}
+
+.tagline {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.bio {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.looking-for {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  color: #2d3748;
+  margin: 1.5rem 0 1rem;
+  font-size: 1.2rem;
+}
+
+.qualities-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+}
+
+.qualities-list li {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.1rem;
+  color: #4a5568;
+  margin-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  position: relative;
+  line-height: 1.6;
+}
+
+.bullet {
+  color: #e53e3e; /* Red bullet */
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.highlight {
+  background-color: #fff2cc;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+.huskers {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+.signoff {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  color: #2d3748;
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.emoji {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
+.polaroid img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    filter: contrast(1.05) saturate(1.1);
+  }
+
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+  }
+  .video-container iframe,
+  .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
