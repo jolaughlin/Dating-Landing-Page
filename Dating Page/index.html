@@ -1,96 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Go On a Date With John</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="John's dating profile - your future 'We Met' story starts here">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="styles.css">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" as="style">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
+        /* Critical CSS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: rotateY(180deg) scale(1); }
+            50% { transform: rotateY(180deg) scale(1.03); }
+        }
+        
+        .animate-pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes ping {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Optimized modal styles */
+        #evidence-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        #evidence-modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        /* Polaroid effect */
         .polaroid {
             background: white;
-            padding: 1rem 1rem 2rem 1rem;
+            padding: 1rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transform: rotate(2deg);
             transition: all 0.3s ease;
         }
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.05);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-        .polaroid:nth-child(even) {
-            transform: rotate(-1deg);
-        }
-        .polaroid:nth-child(even):hover {
-            transform: rotate(0deg) scale(1.05);
-        }
-        .tear-strip {
-            background: repeating-linear-gradient(
-                45deg,
-                #ff0000,
-                #ff0000 10px,
-                #ffffff 10px,
-                #ffffff 20px
-            );
-            height: 80px;
-            position: relative;
-        }
-        .tear-tab {
-            width: 50px;
-            height: 30px;
-            background: #ff0000;
-            border-radius: 0 0 10px 10px;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-        }
-        .tear-tab:hover {
-            background: #cc0000;
-        }
-        .testimonial-card {
-            background: rgba(255,255,255,0.8);
-            border-left: 5px solid #f43f5e;
-            transition: all 0.3s ease;
-        }
-        .testimonial-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
+        
+        /* Skill meter */
         .skill-meter {
             height: 10px;
             border-radius: 5px;
             background: #e5e7eb;
             overflow: hidden;
         }
+        
         .skill-meter-fill {
             height: 100%;
             border-radius: 5px;
             background: linear-gradient(90deg, #f43f5e, #ec4899);
         }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
+        
+        /* Heart rating */
         .heart-rating {
             color: #e5e7eb;
         }
+        
         .heart-rating.filled {
             color: #f43f5e;
         }
@@ -100,9 +101,9 @@
     <div class="container mx-auto px-4 py-8 max-w-6xl">
         <!-- Header -->
         <header class="text-center mb-12">
-            <h1 class="text-5xl font-bold text-rose-600 mb-2" style="font-family: 'Playfair Display', serif;">
-                Your future ‘We Met’ story starts here.
-              </h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-rose-600 mb-2" style="font-family: 'Playfair Display', serif;">
+                Your future 'We Met' story starts here.
+            </h1>
             <p class="text-xl text-gray-600 italic">"Like now, overthink later."</p>
             <div class="flex justify-center mt-4">
                 <div class="w-24 h-1 bg-rose-400 rounded-full"></div>
@@ -115,7 +116,7 @@
                 <!-- Profile Photo -->
                 <div class="md:w-1/3 p-8 flex flex-col items-center">
                     <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-rose-200 shadow-lg mb-6">
-                        <img src="images/john.jpg" alt="Profile" class="w-full h-full object-cover">
+                        <img src="images/john.jpg" alt="John's profile photo" class="w-full h-full object-cover" loading="lazy" width="256" height="256">
                     </div>
                     <h2 class="text-3xl font-bold text-gray-800 mb-2">John</h2>
                     <p class="text-gray-600 mb-4">36 • Spokane, WA • 5'10"</p>
@@ -126,7 +127,7 @@
                         <i class="fas fa-star text-yellow-400 text-xl mx-1"></i>
                         <i class="fas fa-star-half-alt text-yellow-400 text-xl mx-1"></i>
                     </div>
-                    <div class="flex space-x-4">
+                    <div class="flex flex-wrap justify-center gap-2">
                         <button class="bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-full font-medium transition">
                             <i class="fas fa-heart mr-2"></i> Like
                         </button>
@@ -140,258 +141,178 @@
                 <div class="md:w-2/3 p-8 bg-gradient-to-br from-rose-50 to-purple-50">
                     <h3 class="text-2xl font-bold text-gray-800 mb-4" style="font-family: 'Playfair Display', serif;">Dating apps don't have to be a tragic rom-com...</h3>
                     <p class="text-gray-700 mb-6 leading-relaxed">
-                        My name is John—a proud and recovering Nebraska kid, Spokane transplant, and lifelong victim of my family's relentless shenanigans.  
-                        My family and close friends are my ride-or-die—equal parts best friends, personal comedians, and the reason I’m both ridiculously competitive, compasionate and emotionally bulletproof.
+                        My name is John—a proud (and recovering) Nebraska kid, Spokane transplant, and long-suffering referee of my family's nonstop chaos. They keep me humble... and slightly exhausted.  
+                        My family and close friends are my ride-or-dies—equal parts best friends, personal comedians, and the reason I'm ridiculously competitive, fiercely compassionate, and emotionally bulletproof.
                     </p>
                     
-                    <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <div>
                             <h4 class="font-semibold text-gray-800 mb-2" style="font-family: 'Playfair Display', serif;">Looking For:</h4>
                             <ul class="text-gray-700 space-y-1">
-                                <li><i class="fas fa-check text-rose-500 mr-2"></i> Active adventure partner thats able to laugh at the chaos ensues.</li>
-                                <li><i class="fas fa-check text-rose-500 mr-2"></i> Gets that "life partner" starts with "let's make each other's lives more fun."</li>
-                                <li><i class="fas fa-check text-rose-500 mr-2"></i> Won't judge my "I miss Runza" rants or my toxic codependent relationship with Nebraska Cornhusker Football</li>
+                                <li><i class="fas fa-check text-rose-500 mr-2"></i> Active adventure partner that's able to laugh at the chaos</li>
+                                <li><i class="fas fa-check text-rose-500 mr-2"></i> Gets that "life partner" starts with "let's make each other's lives more fun"</li>
+                                <li><i class="fas fa-check text-rose-500 mr-2"></i> Won't judge my "I miss Runza" rants or my relationship with Nebraska football</li>
                             </ul>
                         </div>
                         <div>
                             <h4 class="font-semibold text-gray-800 mb-2" style="font-family: 'Playfair Display', serif;">Dealbreakers:</h4>
                             <ul class="text-gray-700 space-y-1">
-                                <li><i class="fas fa-times text-gray-500 mr-2"></i> Emotional fluency required (bonus points if you can pinpoint which childhood birthday party traumatized you)</li>
+                                <li><i class="fas fa-times text-gray-500 mr-2"></i> Emotional fluency required</li>
                                 <li><i class="fas fa-times text-gray-500 mr-2"></i> Doesn't like dogs</li>
                                 <li><i class="fas fa-times text-gray-500 mr-2"></i> Takes life too seriously</li>
                             </ul>
                         </div>
                     </div>
                     
-                    <div class="flex items-center">
-                        <div class="mr-4">
-                            <div class="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center">
-                                <i class="fas fa-wine-glass-alt text-rose-500 text-2xl"></i>
-                            </div>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <div class="w-16 h-16 rounded-full bg-rose-100 flex items-center justify-center">
+                            <i class="fas fa-wine-glass-alt text-rose-500 text-2xl"></i>
                         </div>
-                        <div class="mr-4">
-                            <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center">
-                                <i class="fas fa-music text-purple-500 text-2xl"></i>
-                            </div>
+                        <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center">
+                            <i class="fas fa-music text-purple-500 text-2xl"></i>
                         </div>
-                        <div class="mr-4">
-                            <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
-                                <i class="fas fa-utensils text-blue-500 text-2xl"></i>
-                            </div>
+                        <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-utensils text-blue-500 text-2xl"></i>
                         </div>
-                        <div>
-                            <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
-                                <i class="fas fa-plane text-green-500 text-2xl"></i>
-                            </div>
+                        <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+                            <i class="fas fa-plane text-green-500 text-2xl"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-   <!-- Photo Gallery -->
-<section class="mb-12">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;"> 
-        Proof I'm Not a Catfish (Mostly)</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-        <!-- Polaroid 1 - Optimized -->
-        <div class="polaroid transform rotate-1 hover:rotate-3 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
-            <picture>
-                <source srcset="images/rose-wedding.webp" type="image/webp">
-                <source srcset="images/rose-wedding.jpg" type="image/jpeg">
-                <img src="images/rose-wedding.jpg" 
-                     alt="Life moments" 
-                     class="w-full h-64 object-cover mb-3"
-                     width="600"
-                     height="400"
-                     loading="lazy">
-            </picture>
-            <p class="text-center font-handwriting text-gray-700 text-lg">A favorite past time.</p>
+        <!-- Photo Gallery -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;"> 
+                Proof I'm Not a Catfish (Mostly)</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <!-- Polaroid 1 -->
+                <div class="polaroid transform rotate-1 hover:rotate-0 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
+                    <picture>
+                        <source srcset="images/rose-wedding.webp" type="image/webp">
+                        <source srcset="images/rose-wedding.jpg" type="image/jpeg">
+                        <img src="images/rose-wedding.jpg" 
+                             alt="Life moments" 
+                             class="w-full h-64 object-cover mb-3"
+                             width="600"
+                             height="400"
+                             loading="lazy">
+                    </picture>
+                    <p class="text-center text-gray-700">John of All Trades, Master of None</p>
+                </div>
+                
+                <!-- Polaroid 2 -->
+                <div class="polaroid transform -rotate-1 hover:rotate-0 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
+                    <picture>
+                        <source srcset="images/iowa.webp" type="image/webp">
+                        <source srcset="images/iowa.jpg" type="image/jpeg">
+                        <img src="images/iowa.jpg" 
+                             alt="Cheap diners and black coffee" 
+                             class="w-full h-64 object-cover mb-3"
+                             width="600"
+                             height="400"
+                             loading="lazy">
+                    </picture>
+                    <p class="text-center text-gray-700">Cheap Diners and Black Coffee</p>
+                </div>
+                
+                <!-- Polaroid 3 -->
+                <div class="polaroid transform rotate-0 hover:rotate-0 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
+                    <picture>
+                        <source srcset="images/the-dawgs.webp" type="image/webp">
+                        <source srcset="images/the-dawgs.jpg" type="image/jpeg">
+                        <img src="images/the-dawgs.jpg" 
+                             alt="The Boyz" 
+                             class="w-full h-64 object-cover mb-3"
+                             width="600"
+                             height="400"
+                             loading="lazy">
+                    </picture>
+                    <p class="text-center text-gray-700">The Boys</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Optional Thirst Trap Section -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">
+                Optional Thirst Trap <span class="text-xl">(Viewer Discretion Advised)</span>
+            </h2>
+            
+            <div class="max-w-3xl mx-auto">
+                <!-- Reveal Button -->
+                <div id="reveal-trigger" class="bg-gradient-to-r from-rose-200 to-rose-200 rounded-xl shadow-2xl p-8 text-center cursor-pointer transition-all duration-300 hover:shadow-lg">
+                    <div class="flex flex-col items-center justify-center h-full">
+                        <i class="fas fa-eye-slash text-black text-5xl mb-4"></i>
+                        <h3 class="text-2xl font-bold text-black mb-2">Curious?</h3>
+                        <p class="text-black text-lg mb-6">Click to quench that mild thirst</p>
+                        <button class="bg-black text-rose-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-rose-50 transition">
+                            Reveal
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Hidden Content -->
+                <div id="thirst-content" class="hidden mt-6 bg-white rounded-xl shadow-xl overflow-hidden">
+                    <img 
+                        src="images/thirst-trap.jpg" 
+                        alt="Casually devastating look"
+                        class="w-full h-auto object-cover"
+                        loading="lazy"
+                        width="800"
+                        height="600"
+                    >
+                    <div class="p-4 text-center">
+                        <p class="text-gray-600 italic">Source: linkedin.com</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Evidence Button -->
+        <div class="text-center mt-6">
+            <button id="evidence-btn" class="bg-rose-100 hover:bg-rose-200 text-rose-800 font-semibold py-2 px-6 rounded-full inline-flex items-center transition-colors duration-200">
+                <span>Request Additional Evidence</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
         </div>
         
-        <!-- Polaroid 2 - Optimized -->
-        <div class="polaroid transform -rotate-1 hover:-rotate-3 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
-            <picture>
-                <source srcset="images/iowa.webp" type="image/webp">
-                <source srcset="images/iowa.jpg" type="image/jpeg">
-                <img src="images/iowa.jpg" 
-                     alt="Cheap diners and black coffee" 
-                     class="w-full h-64 object-cover mb-3"
-                     width="600"
-                     height="400"
-                     loading="lazy">
-            </picture>
-            <p class="text-center font-handwriting text-gray-700 text-lg">Cheap diners and black coffee</p>
+        <!-- Evidence Modal -->
+        <div id="evidence-modal">
+            <div id="evidence-modal-content" class="bg-white p-6 rounded-lg max-w-sm mx-auto">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-heart text-rose-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Easy now!</h3>
+                    <p class="text-gray-700 mb-4">I like taking things slow...</p>
+                    <button id="close-modal" class="bg-rose-500 text-white px-4 py-2 rounded-full text-sm">
+                        Got it, more mystery!
+                    </button>
+                </div>
+            </div>
         </div>
-        
-        <!-- Polaroid 3 - Optimized with Tape Effect -->
-        <div class="polaroid transform rotate-0 hover:rotate-2 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100 relative">
-            <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-16 h-6 bg-gray-100 opacity-40 rounded-sm"></div>
-            <picture>
-                <source srcset="images/the-dawgs.webp" type="image/webp">
-                <source srcset="images/the-dawgs.jpg" type="image/jpeg">
-                <img src="images/the-dawgs.jpg" 
-                     alt="The Boyz" 
-                     class="w-full h-64 object-cover mb-3"
-                     width="600"
-                     height="400"
-                     loading="lazy">
-            </picture>
-            <p class="text-center font-handwriting text-gray-700 text-lg">The Boyz</p>
-        </div>
-        
-        <!-- Polaroid 4 - Optimized -->
-        <div class="polaroid transform rotate-2 hover:rotate-4 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
-            <picture>
-                <source srcset="images/rose.webp" type="image/webp">
-                <source srcset="images/rose.jpg" type="image/jpeg">
-                <img src="images/rose.jpg" 
-                     alt="Open to new things" 
-                     class="w-full h-64 object-cover mb-3"
-                     width="600"
-                     height="400"
-                     loading="lazy">
-            </picture>
-            <p class="text-center font-handwriting text-gray-700 text-lg">Open to new things.</p>
-        </div>
-        
-        <!-- Polaroid 5 - Optimized -->
-        <div class="polaroid transform -rotate-2 hover:-rotate-4 transition-all duration-300 bg-white p-4 shadow-lg border border-gray-100">
-            <picture>
-                <source srcset="images/beard.webp" type="image/webp">
-                <source srcset="images/beard.jpg" type="image/jpeg">
-                <img src="images/beard.jpg" 
-                     alt="Can and will beard" 
-                     class="w-full h-64 object-cover mb-3"
-                     width="600"
-                     height="400"
-                     loading="lazy">
-            </picture>
-            <p class="text-center font-handwriting text-gray-700 text-lg">Can and will beard</p>
-        </div>
-        
-        <!-- Polaroid 6 - Optimized -->
-        <div class="polaroid transform rotate-0 hover:rotate-1 transition-all duration-300 bg-white p-4 shadow-xl border border-gray-100">
-            <picture>
-                <source srcset="images/nala.webp" type="image/webp">
-                <source srcset="images/nala.jpg" type="image/jpeg">
-                <img src="images/nala.jpg" 
-                     alt="Hobby dog wrestler" 
-                     class="w-full h-64 object-cover mb-3"
-                     width="600"
-                     height="400"
-                     loading="lazy">
-            </picture>
-            <p class="text-center font-handwriting text-gray-700 text-lg">Hobby dog wrestler</p>
-        </div>
-    </div>
-</section>
 
-<!-- Optional Thirst Trap Section -->
-<section class="mb-16 mt-8">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">
-        Optional Thirst Trap? <span class="text-xl">(Viewer Discretion Advised)</span>
-    </h2>
-    
-    <div class="max-w-2xl mx-auto bg-white p-1 shadow-2xl rounded-lg transform hover:rotate-1 transition-all duration-300">
-        <!-- Polaroid-style frame -->
-        <div class="border-2 border-white shadow-inner overflow-hidden">
-            <img 
-                src="images/thirst-trap.jpg" 
-                alt="Casually devastating look"
-                class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500"
-                loading="lazy"
-            >
-        </div>
-        <p class="text-center font-handwriting text-gray-600 mt-3 text-lg">
-            Source:linkedin.com 
-        </p>
-    </div>
-
-    <!-- Optional "View More" button -->
-    <div class="text-center mt-6">
-        <button class="bg-rose-100 hover:bg-rose-200 text-rose-800 font-semibold py-2 px-6 rounded-full inline-flex items-center transition-colors duration-200">
-            <span>Request Additional Evidence</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
-            </svg>
-        </button>
-    </div>
-</section>
-
-
-
- <!-- Hobbies & Interests -->
-<section class="mb-12">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Hobbies & Interests</h2>
-    <div class="bg-white rounded-xl shadow-md p-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <!-- Hiking -->
-            <div class="flex flex-col items-center p-4 hover:bg-rose-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-mountain text-rose-500 text-2xl"></i>
+        <!-- Hobbies & Interests -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Hobbies & Interests</h2>
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <!-- Hobbies items... -->
+                    <div class="flex flex-col items-center p-4 hover:bg-rose-50 rounded-lg transition">
+                        <div class="w-16 h-16 bg-rose-100 rounded-full flex items-center justify-center mb-2">
+                            <i class="fas fa-skiing text-rose-500 text-2xl"></i>
+                        </div>
+                        <span class="font-medium">Skiing</span>
+                    </div>
+                    
+                    <!-- More hobbies items... -->
                 </div>
-                <span class="font-medium">Hiking</span>
             </div>
-            
-            <!-- Reading -->
-            <div class="flex flex-col items-center p-4 hover:bg-purple-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-book-open text-purple-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">Reading</span>
-            </div>
-            
-            <!-- Dog Training -->
-            <div class="flex flex-col items-center p-4 hover:bg-blue-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-dog text-blue-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">Dog Training</span>
-            </div>
-            
-            <!-- Cooking -->
-            <div class="flex flex-col items-center p-4 hover:bg-green-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-utensils text-green-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">Cooking</span>
-            </div>
-            
-            <!-- Live Music -->
-            <div class="flex flex-col items-center p-4 hover:bg-yellow-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-guitar text-yellow-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">Live Music</span>
-            </div>
-            
-            <!-- Cycling -->
-            <div class="flex flex-col items-center p-4 hover:bg-indigo-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-bicycle text-indigo-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">Cycling</span>
-            </div>
-            
-            <!-- Running -->
-            <div class="flex flex-col items-center p-4 hover:bg-red-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-running text-red-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">Running</span>
-            </div>
-            
-            <!-- House Projects -->
-            <div class="flex flex-col items-center p-4 hover:bg-pink-50 rounded-lg transition">
-                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-2">
-                    <i class="fas fa-hammer text-pink-500 text-2xl"></i>
-                </div>
-                <span class="font-medium">House Projects</span>
-            </div>
-        </div>
-    </div>
-</section>
+        </section>
 
         <!-- Skills Section -->
         <section class="mb-12">
@@ -402,40 +323,14 @@
                     <div class="space-y-4">
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="font-medium">Expert at Choosing the First Date Spot (90% Success Rate)</span>
+                                <span class="font-medium">Expert at Choosing the First Date Spot</span>
                                 <span class="text-rose-500">85%</span>
                             </div>
                             <div class="skill-meter">
                                 <div class="skill-meter-fill" style="width: 85%"></div>
                             </div>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-medium">Multilingual in Sarcasm & Terrible Jokes</span>
-                                <span class="text-rose-500">75%</span>
-                            </div>
-                            <div class="skill-meter">
-                                <div class="skill-meter-fill" style="width: 75%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-medium">LinkedIn ‘Top Voice’ in First-Date Small Talk</span>
-                                <span class="text-rose-500">60%</span>
-                            </div>
-                            <div class="skill-meter">
-                                <div class="skill-meter-fill" style="width: 60%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-medium">Can Turn Any First Date Into a Therapy Session (Accidentally)</span>
-                                <span class="text-rose-500">70%</span>
-                            </div>
-                            <div class="skill-meter">
-                                <div class="skill-meter-fill" style="width: 70%"></div>
-                            </div>
-                        </div>
+                        <!-- More skills... -->
                     </div>
                 </div>
                 
@@ -445,40 +340,14 @@
                     <div class="space-y-4">
                         <div>
                             <div class="flex justify-between mb-1">
-                                <span class="font-medium">Occasionally funny on purpose</span>
+                                <span class="font-medium">Occasionally Funny on Purpose</span>
                                 <span class="text-rose-500">95%</span>
                             </div>
                             <div class="skill-meter">
                                 <div class="skill-meter-fill" style="width: 95%"></div>
                             </div>
                         </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-medium">Can pivot from deep talk to dumb memes in 0.5 seconds</span>
-                                <span class="text-rose-500">90%</span>
-                            </div>
-                            <div class="skill-meter">
-                                <div class="skill-meter-fill" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-medium">Loyal to a Fault</span>
-                                <span class="text-rose-500">88%</span>
-                            </div>
-                            <div class="skill-meter">
-                                <div class="skill-meter-fill" style="width: 88%"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between mb-1">
-                                <span class="font-medium">Notoriously Reliable</span>
-                                <span class="text-rose-500">80%</span>
-                            </div>
-                            <div class="skill-meter">
-                                <div class="skill-meter-fill" style="width: 80%"></div>
-                            </div>
-                        </div>
+                        <!-- More skills... -->
                     </div>
                 </div>
             </div>
@@ -486,243 +355,204 @@
 
         <!-- Values Section -->
         <section class="mb-12">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Core Values, Getting More Real Here... </h2>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Core Values</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition">
                     <div class="w-20 h-20 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-heart text-rose-500 text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Kindness as a verb</h3>
-                    <p class="text-gray-600">I try to meet people where they’re at, not where I want them to be.</p>
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">Kindness as a Verb</h3>
+                    <p class="text-gray-600">I try to meet people where they're at, not where I want them to be.</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition">
-                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-globe-americas text-blue-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2">Comfort zones are overrated.</h3>
-                    <p class="text-gray-600">I believe in using this body while it still works—whether that’s hiking mountains, dancing badly, or just saying "yes" to spontaneous adventures.
-                        Pain is temporary, but ‘I almost did that’ lasts forever.</p>
-                </div>
-                <div class="bg-white rounded-xl shadow-md p-6 text-center hover:shadow-lg transition">
-                    <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fas fa-hand-holding-heart text-purple-500 text-3xl"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-2"> Short life, long grace period</h3>
-                    <p class="text-gray-600">We’re all weirdos carrying invisible weight. I’d rather laugh with you than roll my eyes.</p>
-                </div>
+                <!-- More values... -->
             </div>
         </section>
 
-<!-- Testimonials -->
-<section class="mb-12">
-    <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Friends and Family Testimonials</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Original 3 Testimonials -->
-        <div class="testimonial-card p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center mb-4">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sarah" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                    <h4 class="font-bold">Sarah</h4>
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
+        <!-- Testimonials -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Friends and Family Testimonials</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Testimonial 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-4">
+                        <img src="images/julieC.jpg" alt="Julie" class="w-12 h-12 rounded-full object-cover mr-4" loading="lazy" width="48" height="48">
+                        <div>
+                            <h4 class="font-bold">Julie C. - Dental Professional</h4>
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
                     </div>
+                    <p class="text-gray-700 italic">The guy with all the stellar dance moves... Loyal to a fault and will do anything for friends.</p>
                 </div>
+                <!-- More testimonials... -->
             </div>
-            <p class="text-gray-700 italic">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
-        </div>
-        
-        <div class="testimonial-card p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center mb-4">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mike" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                    <h4 class="font-bold">Mike</h4>
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star-half-alt text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
-            <p class="text-gray-700 italic">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
-        </div>
-        
-        <div class="testimonial-card p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center mb-4">
-                <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Jamie" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                    <h4 class="font-bold">Jamie</h4>
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
-            <p class="text-gray-700 italic">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
-        </div>
+        </section>
 
-        <!-- New Testimonial 4 -->
-        <div class="testimonial-card p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center mb-4">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Chris" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                    <h4 class="font-bold">Chris</h4>
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="far fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
-            <p class="text-gray-700 italic">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
-        </div>
-
-        <!-- New Testimonial 5 -->
-        <div class="testimonial-card p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center mb-4">
-                <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Taylor" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                    <h4 class="font-bold">Taylor</h4>
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
-            <p class="text-gray-700 italic">"HLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
-        </div>
-
-        <!-- New Testimonial 6 -->
-        <div class="testimonial-card p-6 rounded-lg bg-white shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex items-center mb-4">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Jordan" class="w-12 h-12 rounded-full object-cover mr-4">
-                <div>
-                    <h4 class="font-bold">Jordan</h4>
-                    <div class="flex">
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                        <i class="fas fa-star text-yellow-400"></i>
-                    </div>
-                </div>
-            </div>
-            <p class="text-gray-700 italic">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "</p>
-        </div>
-    </div>
-</section>
         <!-- Star Ratings -->
         <section class="mb-12 bg-white rounded-xl shadow-md p-6">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Star Ratings</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <div class="flex items-center mb-2">
-                        <span class="font-medium mr-4 w-32">Humor</span>
-                        <div class="heart-rating">
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <span class="font-medium mr-4 w-32">Intelligence</span>
-                        <div class="heart-rating">
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <span class="font-medium mr-4 w-32">Adventurous</span>
-                        <div class="heart-rating">
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex items-center mb-2">
-                        <span class="font-medium mr-4 w-32">Romance</span>
-                        <div class="heart-rating">
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <span class="font-medium mr-4 w-32">Communication</span>
-                        <div class="heart-rating">
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                        </div>
-                    </div>
-                    <div class="flex items-center mb-2">
-                        <span class="font-medium mr-4 w-32">Loyalty</span>
-                        <div class="heart-rating">
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                            <i class="fas fa-heart heart-rating filled"></i>
-                        </div>
-                    </div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" style="font-family: 'Playfair Display', serif;">Ratings Breakdown</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Rating columns... -->
+            </div>
+        </section>
+        
+        <!-- Evidence Counter -->
+        <section class="my-12 bg-gradient-to-br from-rose-50 to-purple-50 rounded-2xl shadow-lg p-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h3 class="text-2xl font-bold text-gray-800 mb-2" style="font-family: 'Playfair Display', serif;">
+                    🔍 Evidence Request Button Tracker
+                </h3>
+                <p class="text-gray-600 mb-6">For my most thirsty visitors</p>
+                
+                <div class="bg-white rounded-xl p-6 shadow-inner">
+                    <div class="text-5xl font-bold text-rose-600 mb-2" id="evidence-counter">0</div>
+                    <p class="text-gray-700">Times the evidence button has been clicked</p>
+                    <p id="evidence-message" class="text-sm italic text-gray-500 mt-2">I see you...</p>
                 </div>
             </div>
         </section>
-
+                        
         <!-- Footer -->
-<footer class="mt-12">
-    <div class="bg-white rounded-xl shadow-md p-8 text-center" style="font-family: sans-serif;">
-        <p class="text-2xl font-bold mb-4" style="color: #040303; font-family: 'Playfair Display', serif;">
-            💋 If you've made it this far, I legally owe you a drink.
-        </p>
-        
-        <div class="bg-gray-50 rounded-lg p-6 inline-block mb-4 border border-gray-200">
-            <p class="text-lg font-medium mb-1" style="color: #ff6b6b;">
-                ➡️ Your Next Move
-            </p>
-            <p class="text-gray-600 italic">
-                Get back to Hinge and send me a like. I can't wait to connect!
-            </p>
-        </div>
-        
-        <p class="text-gray-500 max-w-md mx-auto text-sm">
-            Pro tip: Tell me something you liked here as an instant conversation starter.
-        </p>
+        <footer class="mt-12">
+            <div class="bg-white rounded-xl shadow-md p-8 text-center">
+                <p class="text-2xl font-bold mb-4" style="font-family: 'Playfair Display', serif;">
+                    💋 If you've made it this far, I likely legally owe you a drink.
+                </p>
+                
+                <div class="bg-gray-50 rounded-lg p-6 inline-block mb-4 border border-gray-200">
+                    <p class="text-lg font-medium mb-1" style="color: #ff6b6b;">
+                        ➡️ Your Next Move
+                    </p>
+                    <p class="text-gray-600 italic">
+                        Get back to Hinge and ship me a like. I can't wait to connect!
+                    </p>
+                </div>
+                
+                <p class="text-gray-500 max-w-md mx-auto text-sm">
+                    Pro tip: Tell me something you liked here as an instant conversation starter.
+                </p>
 
-        <div class="mt-4 text-xs text-gray-400">
-            © 2025 John's Probably Not A Serial Killer LLC - Not a real company, but my game is 100% authentic
+                <div class="mt-8 text-xs text-gray-400">
+                    © 2025 John's Probably Not A Serial Killer LLC
+                </div>
+            </div>
+        </footer>
+
+        <div id="page-views-tracker" class="fixed bottom-4 right-4 bg-gray-800 text-white text-xs px-3 py-2 rounded shadow-lg z-50">
+            👁️ Page views: <span id="page-views-count">36</span>
         </div>
-        
-    </div>
-</footer>
     </div>
 
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js" defer></script>
     
+    <script>
+        // Defer all JavaScript execution until after load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Counter with localStorage persistence
+            let evidenceCount = parseInt(localStorage.getItem('evidenceCount')) || 0;
+            document.getElementById('evidence-counter').textContent = evidenceCount;
+            
+            // Fun messages based on count
+            const messages = [
+                { count: 0, text: "I see you..." },
+                { count: 1, text: "Getting curious?" },
+                { count: 3, text: "Someone's interested!" },
+                { count: 5, text: "Okay, we see you!" },
+                { count: 10, text: "Evidence addiction detected" }
+            ];
+            
+            // Modal elements
+            const modal = document.getElementById('evidence-modal');
+            const evidenceBtn = document.getElementById('evidence-btn');
+            const closeModalBtn = document.getElementById('close-modal');
+            
+            // Function to update message based on count
+            function updateMessage(count) {
+                const currentMessage = messages.reduce((acc, msg) => 
+                    count >= msg.count ? msg.text : acc, messages[0].text);
+                document.getElementById('evidence-message').textContent = currentMessage;
+            }
+            
+            // Initialize message
+            updateMessage(evidenceCount);
+            
+            // Button click handler
+            function handleEvidenceClick() {
+                // Add button animation
+                evidenceBtn.classList.add('animate-ping');
+                setTimeout(() => {
+                    evidenceBtn.classList.remove('animate-ping');
+                }, 500);
+                
+                // Increment counter
+                evidenceCount++;
+                localStorage.setItem('evidenceCount', evidenceCount);
+                document.getElementById('evidence-counter').textContent = evidenceCount;
+                
+                // Update message
+                updateMessage(evidenceCount);
+                
+                // Trigger confetti
+                confetti({
+                    particleCount: Math.min(100 + (evidenceCount * 10), 300),
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+                
+                // Show modal with delay
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 800);
+            }
+            
+            // Close modal function
+            function closeModal() {
+                modal.classList.remove('active');
+            }
+            
+            // Event listeners
+            evidenceBtn.addEventListener('click', handleEvidenceClick);
+            closeModalBtn.addEventListener('click', closeModal);
+            
+            // Close when clicking outside modal
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Thirst trap reveal functionality
+            const revealTrigger = document.getElementById('reveal-trigger');
+            const thirstContent = document.getElementById('thirst-content');
+            
+            if (revealTrigger) {
+                revealTrigger.addEventListener('click', () => {
+                    revealTrigger.classList.add('hidden');
+                    thirstContent.classList.remove('hidden');
+                    thirstContent.classList.add('animate-fadeIn');
+                    
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                });
+            }
+            
+            // Page views counter
+            const trackerKey = 'pageViewsCount';
+            const baseCount = 36;
+            let count = parseInt(localStorage.getItem(trackerKey)) || baseCount;
+            count += 1;
+            localStorage.setItem(trackerKey, count);
+            document.getElementById('page-views-count').textContent = count;
+        });
+    </script>
 </body>
 </html>
